@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+  <h2>Login</h2>
+
+
+    <form action="{{ url_for('show_login') }}" method="post" class="form-signin">
+        <p></p>
+
+
+
+        <label for="inputName" class="sr-only">Username</label>
+        <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Username" required autofocus>
+        <p></p>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+        <p></p>
+          
+        <input type="submit" id="btnsign_up" class="btn btn-lg btn-primary btn-block"></button>
+    
+    </form>
+
+{% endblock %}    

@@ -39,6 +39,14 @@ def get_db():
 def show_login():
     return render_template('login.html')
 
+@app.route('/dashboard')
+def show_dashboard():
+    return render_template('dashboard.html')    
+
+@app.route('/profile')
+def show_profile():
+    return render_template('dashboard.html')     
+
 @app.route('/test')
 def show_test():
     cur = get_db().cursor()
