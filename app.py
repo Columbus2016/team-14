@@ -49,4 +49,56 @@ def show_test():
     return render_template('test.html', maxUser=maxUser)
 
 if __name__ == '__main__':
-	app.run(debug=True)    
+	app.run(debug=True)
+
+
+class User:
+    def __init__(self, id, firstName, lastName, email, birthday, location, gender, points, groupID):
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.birthday = birthday
+        self.location = location
+        self.gender = gender
+        self.points = points
+        self.groupID = groupID
+
+    def validatePurchase(self, product):
+        self.points += product.points
+
+    def joinGroup(self, groupID):
+        self.groupID = groupID
+
+class Group:
+    def __init__(self, id, name, creator, points, description):
+        self.id = id
+        self.name = name
+        self.creator = creator
+        self.points = points
+        self.description = description
+
+class Product:
+    def __init__(self, product, points):
+        self.product = product
+        self.points = points
+
+class Competition:
+    def __init__(self, id, group1, group2, inSession):
+        self.id = id
+        self.group1 = group1
+        self.group2 = group2
+        self.points1 = 0
+        self.points2 = 0
+        self.inSession = inSession
+
+    def addToGroupOne(self, points):
+        if self.inSession:
+            self.points1 += points
+
+    def addToGroupTwo(self, points):
+        if self.inSession:
+            self.points2 += points
+
+    def endCompetition(self):
+        self.inSession = False
