@@ -1,0 +1,29 @@
+CREATE SCHEMA `app_etizr` ;
+
+CREATE TABLE `app_etizr`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(60) NOT NULL,
+  `birthdate` DATETIME NULL,
+  `location` VARCHAR(100) NULL,
+  `gender` VARCHAR(10) NULL,
+  `points` INT ZEROFILL NOT NULL,
+  PRIMARY KEY (`id`));
+CREATE TABLE `app_etizr`.`groups` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `creator` INT NOT NULL,
+  `points` INT ZEROFILL NOT NULL,
+  `description` VARCHAR(300) NULL,
+  PRIMARY KEY (`id`));
+CREATE TABLE `app_etizr`.`membership` (
+  `group` INT NOT NULL,
+  `user` INT NOT NULL,
+  PRIMARY KEY (`group`, `user`));
+ALTER TABLE `app_etizr`.`users` 
+CHANGE COLUMN `points` `points` INT(10) UNSIGNED ZEROFILL NOT NULL DEFAULT 0 ;
+CREATE TABLE `app_etizr`.`products` (
+  `product` VARCHAR(45) NOT NULL,
+  `points` INT NOT NULL,
+  PRIMARY KEY (`product`));
