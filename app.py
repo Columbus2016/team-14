@@ -35,6 +35,9 @@ def get_db():
         g.mysql = connect_db()
     return g.mysql
 
+@app.route('/login')
+def show_login():
+    return render_template('login.html')
 
 @app.route('/test')
 def show_test():
