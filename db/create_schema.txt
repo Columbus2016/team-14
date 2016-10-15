@@ -125,8 +125,4 @@ VALUES
 'password');
 ;
 
-ALTER TABLE `app_etizr2`.`users` 
-DROP FOREIGN KEY `group_number`;
-ALTER TABLE `app_etizr2`.`users` 
-DROP INDEX `group_number_idx` ;
 
