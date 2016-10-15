@@ -11,6 +11,7 @@ app.config['MYSQL_DB'] = 'app_etizr'
 app.config['MYSQL_PORT'] = '3307'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
+id = NULL
 
 
 
@@ -63,6 +64,8 @@ def login():
         if request.form['password'] != cur.fetchall()[0]:
             error = 'Invalid Credentials. Please try again.'
         else:
+            cur.execute('''SELECT id from users where email = %s''', request.form['username'])
+            id = cur.fetchall()[0]
             return redirect(main_page)
     return render_template('login.html', error=error)
 
