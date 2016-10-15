@@ -51,6 +51,19 @@ def show_test():
 if __name__ == '__main__':
 	app.run(debug=True)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        cur = get_db().cursor()
+        cur.execute('''SELECT password from users where email = %s''',request.form['username'])
+        if request.form['password'] != cur.fetchall()[0]:
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(main_page)
+    return render_template('login.html', error=error)
+
+
 
 class User:
     def __init__(self, id, firstName, lastName, email, birthday, location, gender, points, groupID):
