@@ -1,29 +1,47 @@
-CREATE SCHEMA `app_etizr` ;
+CREATE SCHEMA `app_etizr2` ;
 
-CREATE TABLE `app_etizr`.`users` (
+CREATE TABLE `app_etizr2`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(60) NOT NULL,
-  `birthdate` DATETIME NULL,
-  `location` VARCHAR(100) NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `birthdate` DATE NULL,
   `gender` VARCHAR(10) NULL,
-  `points` INT ZEROFILL NOT NULL,
+  `group` INT NOT NULL,
+  `points` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`));
-CREATE TABLE `app_etizr`.`groups` (
+CREATE TABLE `app_etizr2`.`groups` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `creator` INT NOT NULL,
-  `points` INT ZEROFILL NOT NULL,
-  `description` VARCHAR(300) NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `points` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`));
-CREATE TABLE `app_etizr`.`membership` (
-  `group` INT NOT NULL,
-  `user` INT NOT NULL,
-  PRIMARY KEY (`group`, `user`));
-ALTER TABLE `app_etizr`.`users` 
-CHANGE COLUMN `points` `points` INT(10) UNSIGNED ZEROFILL NOT NULL DEFAULT 0 ;
-CREATE TABLE `app_etizr`.`products` (
-  `product` VARCHAR(45) NOT NULL,
+
+ALTER TABLE `app_etizr2`.`users` 
+ADD INDEX `group_number_idx` (`group` ASC);
+ALTER TABLE `app_etizr2`.`users` 
+ADD CONSTRAINT `group_number`
+  FOREIGN KEY (`group`)
+  REFERENCES `app_etizr2`.`groups` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+CREATE TABLE `app_etizr2`.`products` (
+  `name` VARCHAR(20) NOT NULL,
   `points` INT NOT NULL,
-  PRIMARY KEY (`product`));
+  PRIMARY KEY (`name`));
+USE `app_etizr2`;
+DROP procedure IF EXISTS `buy_product`;
+
+DELIMITER $$
+USE `app_etizr2`$$
+CREATE PROCEDURE `buy_product` (name varchar(20), user_id int)
+BEGIN
+	set @x = "select 'points' from 'app_etizr2'.'products' where 'name' = name";
+    set @y = "select 'points from 'app_etizr2'.'users' where 'id' = user_id";
+    update users 
+		set points = @x + @y
+        where id = user_id;
+END$$
+
+DELIMITER ;
