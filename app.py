@@ -36,13 +36,13 @@ def get_db():
         g.mysql = connect_db()
     return g.mysql
 
-@app.route('/login')
+@app.route('/show_login')
 def show_login():
     return render_template('login.html')
 
 @app.route('/dashboard')
 def show_dashboard():
-    return render_template('dashboard.html')       
+    return render_template('dashboard.html')
 
 @app.route('/test')
 def show_test():
@@ -64,11 +64,12 @@ def login():
     error = None
     if request.method == 'POST':
         cur = get_db().cursor()
-        cur.execute('''SELECT password from users where email = %s''',request.form['username'])
+        cur.execute('''SELECT password from users where email = %s''',request.args.get('inputName'))
+        print cur.fetchall()[0]
         if request.form['password'] != cur.fetchall()[0]:
             error = 'Invalid Credentials. Please try again.'
         else:
-            cur.execute('''SELECT id from users where email = %s''', request.form['username'])
+            cur.execute('''SELECT id from users where email = %s''', request.args.get('inputName'))
             id = cur.fetchall()[0]
             return redirect(main_page)
     return render_template('login.html', error=error)
