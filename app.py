@@ -11,7 +11,7 @@ app.config['MYSQL_DB'] = 'app_etizr2'
 app.config['MYSQL_PORT'] = '3306'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
-id = NULL
+id = None
 
 
 
@@ -42,7 +42,11 @@ def show_login():
 
 @app.route('/dashboard')
 def show_dashboard():
-    return render_template('dashboard.html')       
+    return render_template('dashboard.html')   
+
+@app.route('/profile')
+def show_profile():
+    return render_template('profile.html')         
 
 @app.route('/test')
 def show_test():
