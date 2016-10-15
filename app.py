@@ -102,3 +102,8 @@ class Competition:
 
     def endCompetition(self):
         self.inSession = False
+class Quiz:
+    def _init_(self, possiblePoints,pointGain, user):
+        self.possiblePoints = possiblePoints
+        self.pointGain = pointGain
+        self.user = user
