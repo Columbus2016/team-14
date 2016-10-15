@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>APP-ETIZR</title>
+
+    <link href="./static/jumbotron-narrow.css" rel="stylesheet">
+    <script src="./static/jquery.min.js"></script>
+    <script src="./static/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./static/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+    
+</head>
+
+{% set navigation_bar = [
+    ('/show_signup', 'sign_up', 'Sign Up'),
+    ('/show_login', 'sign_in', 'Sign In')
+] -%}
+
+{% set dashboard_restriction = [
+    'sign_up',
+    'sign_in'
+] -%}
+
+{% set active_page = active_page -%}
+
+
+<body>
+    <div class="container">
+
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-8">
+
+        {% block content %}
+        {% endblock %}
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+
+ 
