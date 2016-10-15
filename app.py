@@ -6,12 +6,12 @@ mysql = MySQL()
 app = Flask(__name__)
 
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'team14'
-app.config['MYSQL_DB'] = 'app_etizr'
-app.config['MYSQL_PORT'] = '3307'
+app.config['MYSQL_PASSWORD'] = 'mshosho11'
+app.config['MYSQL_DB'] = 'app_etizr2'
+app.config['MYSQL_PORT'] = '3306'
 app.config['MYSQL_HOST'] = 'localhost'
 mysql.init_app(app)
-id = NULL
+id = None
 
 
 
@@ -21,7 +21,7 @@ def main():
 
 def connect_db():
     """Connects to the specific database."""
-    conn = MySQLdb.connect(host="localhost", 
+    conn = MySQLdb.connect(host="localhost",
                         port = 3307,
                         db="app_etizr",
                         user="root",
@@ -39,6 +39,14 @@ def get_db():
 @app.route('/login')
 def show_login():
     return render_template('login.html')
+
+@app.route('/dashboard')
+def show_dashboard():
+    return render_template('dashboard.html')   
+
+@app.route('/profile')
+def show_profile():
+    return render_template('profile.html')         
 
 @app.route('/test')
 def show_test():
