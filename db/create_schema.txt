@@ -45,3 +45,84 @@ BEGIN
 END$$
 
 DELIMITER ;
+insert into app_etizer2.groups
+(`name`,
+`description`
+)
+VALUES
+(
+'Georgia Tech',
+'The best damn school in the country'
+);
+insert into app_etizer2.groups
+(`name`,
+`description`
+)
+VALUES
+(
+'University of Georgia',
+'The worst damn school in the country'
+);
+ALTER TABLE `app_etizr2`.`users` 
+ADD COLUMN `password` VARCHAR(45) NOT NULL AFTER `points`;
+
+USE `app_etizr2`;
+DROP procedure IF EXISTS `buy_product`;
+
+DELIMITER $$
+USE `app_etizr2`$$
+CREATE PROCEDURE `buy_product`(name varchar(20), user_id int)
+BEGIN
+	set @x = "select 'points' from 'app_etizr2'.'products' where 'name' = name";
+    set @y = "select 'points' from 'app_etizr2'.'users' where 'id' = user_id";
+    set @a = "select 'group' from 'app_etizr2'.'users' where 'id' = user_id";
+    set @z = "select 'points' from 'app_etizr2'.'groups' where 'id' = '@a'";
+    update users 
+		set points = @x + @y
+        where id = user_id;
+	update groups 
+		set points = @z + @y
+        where id = @a;
+END$$
+
+DELIMITER ;
+INSERT INTO `app_etizr2`.`products`
+(`name`,
+`points`)
+VALUES
+('cheerios',
+20);
+
+INSERT INTO `app_etizr2`.`products`
+(`name`,
+`points`)
+VALUES
+('popcorn',
+30);
+INSERT INTO `app_etizr2`.`products`
+(`name`,
+`points`)
+VALUES
+('butter',
+15);
+INSERT INTO `app_etizr2`.`users`
+(`first_name`,
+`last_name`,
+`email`,
+`birthdate`,
+`gender`,
+`group`,
+`points`,
+`password`)
+VALUES
+('Shobhit',
+'Srivastava',
+'2shobhitsriv6@gmail.com',
+'1997-01-26',
+'male',
+1,
+0,
+'password');
+;
+
+
