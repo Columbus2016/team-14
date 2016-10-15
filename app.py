@@ -42,7 +42,17 @@ def show_login():
 
 @app.route('/dashboard')
 def show_dashboard():
+<<<<<<< HEAD
     return render_template('dashboard.html')
+||||||| merged common ancestors
+    return render_template('dashboard.html')       
+=======
+    return render_template('dashboard.html')   
+
+@app.route('/profile')
+def show_profile():
+    return render_template('profile.html')         
+>>>>>>> origin/master
 
 @app.route('/test')
 def show_test():
@@ -109,7 +119,7 @@ class Group:
 class Product:
     def __init__(self, product):
         cur = get_db().cursor()
-        cur.execute('''SELECT points FROM products WHERE product=(%s)''', (product))
+        cur.execute('''SELECT points FROM products WHERE name=(%s)''', (product))
         result = cur.fetchall()
         self.product = product
         self.points = result[0]
