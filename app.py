@@ -65,7 +65,11 @@ class User:
         self.groupID = groupID
 
     def validatePurchase(self, product):
-        self.points += product.points
+        cur = get_db().cursor()
+        cur.execute('''SELECT points FROM users WHERE id=%s''', (id))
+        result = cur.fetchall()
+        self.points = result[0] + Product(product).points
+        cur.execute('''UPDATE users SET points=%s WHERE id=%s''', (self.points, self.id))
 
     def joinGroup(self, groupID):
         self.groupID = groupID
@@ -79,9 +83,12 @@ class Group:
         self.description = description
 
 class Product:
-    def __init__(self, product, points):
+    def __init__(self, product):
+        cur = get_db().cursor()
+        cur.execute('''SELECT points FROM products WHERE product=(%s)''', (product))
+        result = cur.fetchall()
         self.product = product
-        self.points = points
+        self.points = result[0]
 
 class Competition:
     def __init__(self, id, group1, group2, inSession):
